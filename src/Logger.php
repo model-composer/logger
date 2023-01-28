@@ -154,4 +154,28 @@ class Logger
 				break;
 		}
 	}
+
+	public static function getLogs(array $where = [], ?int $page = null, int $per_page = 50): iterable
+	{
+		$config = Config::get('logger');
+
+		switch ($config['storage']) {
+			case 'db':
+				$limit = null;
+				$offset = null;
+				if ($page) {
+					$limit = ($page - 1) * $per_page;
+					$offset = $per_page;
+
+				}
+
+				return \Model\Db\Db::getConnection()->selectAll('model_logs', $where, [
+					'order_by' => [['date', 'DESC']],
+					'limit' => $limit,
+					'offset' => $offset,
+				]);
+		}
+
+		return [];
+	}
 }
