@@ -54,6 +54,9 @@ class Logger
 
 	public static function persist(): void
 	{
+		if (!self::isEnabled() or count(self::$events) === 0)
+			return;
+
 		$config = Config::get('logger');
 
 		switch ($config['storage']) {
