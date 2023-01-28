@@ -130,14 +130,14 @@ class Logger
 						' . $loading_id . ',
 						' . $db->parseValue($expireAt->format('Y-m-d H:i:s')) . ',
 						' . $db->parseValue(implode(',', self::$long_ttl_reasons)) . '
-					)');
+					)', 'model_logs');
 
 					$id = $db->getDb()->lastInsertId();
 
-					$db->query('UPDATE `model_logs` SET `server` = ' . $prepared_server . ' WHERE `id` = ' . $id);
-					$db->query('UPDATE `model_logs` SET `session` = ' . $prepared_session . ' WHERE `id` = ' . $id);
-					$db->query('UPDATE `model_logs` SET `events` = ' . $prepared_events . ' WHERE `id` = ' . $id);
-					$db->query('UPDATE `model_logs` SET `post` = ' . $prepared_post . ' WHERE `id` = ' . $id);
+					$db->query('UPDATE `model_logs` SET `server` = ' . $prepared_server . ' WHERE `id` = ' . $id, 'model_logs');
+					$db->query('UPDATE `model_logs` SET `session` = ' . $prepared_session . ' WHERE `id` = ' . $id, 'model_logs');
+					$db->query('UPDATE `model_logs` SET `events` = ' . $prepared_events . ' WHERE `id` = ' . $id, 'model_logs');
+					$db->query('UPDATE `model_logs` SET `post` = ' . $prepared_post . ' WHERE `id` = ' . $id, 'model_logs');
 				} catch (\Exception $e) {
 				}
 				break;
