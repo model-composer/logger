@@ -13,6 +13,6 @@
     },
     "require": {
         "model/config": "^0.7.0",
-        "model/events": "^0.1.1"
+        "model/events": "^0.2.0"
     }
 }
