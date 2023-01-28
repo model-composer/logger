@@ -104,7 +104,7 @@ class Logger
 					if (strlen($prepared_server) + strlen($prepared_session) + strlen($prepared_post) > MYSQL_MAX_ALLOWED_PACKET - 400)
 						throw new \Exception('Packet too large');
 
-					$url = $_SERVER['REQUEST_URI'];
+					$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 					$loading_id = defined('MODEL_LOADING_ID') ? $db->parseValue(MODEL_LOADING_ID) : 'NULL';
 
