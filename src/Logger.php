@@ -57,6 +57,9 @@ class Logger
 		if (!self::isEnabled() or count(self::$events) === 0)
 			return;
 
+		if (mt_rand(1, 100)) // TODO: dedicated package with auto probabilistc approach for cleanups?
+			self::cleanup();
+
 		$config = Config::get('logger');
 
 		switch ($config['storage']) {
@@ -69,7 +72,7 @@ class Logger
 					if (!defined('MYSQL_MAX_ALLOWED_PACKET')) {
 						$max_allowed_packet_query = $db->query('SHOW VARIABLES LIKE \'max_allowed_packet\'')->fetch();
 						if ($max_allowed_packet_query)
-							define('MYSQL_MAX_ALLOWED_PACKET', $max_allowed_packet_query['Value']);
+							define('MYSQL_MAX_ALLOWED_PACKET', (int)$max_allowed_packet_query['Value']);
 						else
 							define('MYSQL_MAX_ALLOWED_PACKET', 1000000);
 					}
@@ -137,6 +140,17 @@ class Logger
 					$db->query('UPDATE `model_logs` SET `post` = ' . $prepared_post . ' WHERE `id` = ' . $id);
 				} catch (\Exception $e) {
 				}
+				break;
+		}
+	}
+
+	public static function cleanup(): void
+	{
+		$config = Config::get('logger');
+
+		switch ($config['storage']) {
+			case 'db':
+				\Model\Db\Db::getConnection()->delete('model_logs', ['expire_at' > ['<=', date('Y-m-d H:i:s')]]);
 				break;
 		}
 	}
