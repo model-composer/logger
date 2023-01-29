@@ -3,7 +3,6 @@
 use Model\Config\Config;
 use Model\Events\AbstractEvent;
 use Model\Events\Events;
-use Model\Logger\Events\Error;
 
 class Logger
 {
@@ -18,7 +17,7 @@ class Logger
 
 			Events::subscribeTo('*', function (AbstractEvent $event) use ($config) {
 				if (self::$enabled) {
-					$eventName = $event->getEventName();
+					$eventName = get_class($event);
 					if (in_array($eventName, $config['long_ttl_on'])) {
 						if (!in_array($eventName, self::$long_ttl_reasons))
 							self::$long_ttl_reasons[] = $eventName;
@@ -31,11 +30,6 @@ class Logger
 						'time' => microtime(true),
 					];
 				}
-			});
-
-			set_error_handler(function (int $errno, string $errstr, ?string $errfile = null, ?int $errline = null) {
-				if (error_reporting() > 0)
-					Events::dispatch(new Error($errno, $errstr, $errfile, $errline));
 			});
 		}
 

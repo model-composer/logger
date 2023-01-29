@@ -12,7 +12,14 @@ class ConfigProvider extends AbstractConfigProvider
 				'migration' => function (array $config, string $env) {
 					return [
 						'storage' => 'db',
-						'long_ttl_on' => ['Error', 'DeleteQuery', 'UpdateQuery', 'InsertQuery', 'OrmSave', 'OrmDelete'],
+						'long_ttl_on' => [
+							'\\Model\\Core\\Events\\Error',
+							'\\Model\\Db\\Events\\DeleteQuery',
+							'\\Model\\Db\\Events\\UpdateQuery',
+							'\\Model\\Db\\Events\\InsertQuery',
+							'\\Model\\ORM\\Events\\OrmSave',
+							'\\Model\\ORM\\Events\\OrmDelete',
+						],
 						'ttl' => [
 							'short' => 1800,
 							'long' => 1209600,
