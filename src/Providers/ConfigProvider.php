@@ -17,8 +17,8 @@ class ConfigProvider extends AbstractConfigProvider
 							'\\Model\\Db\\Events\\DeleteQuery',
 							'\\Model\\Db\\Events\\UpdateQuery',
 							'\\Model\\Db\\Events\\InsertQuery',
-							'\\Model\\ORM\\Events\\OrmSave',
-							'\\Model\\ORM\\Events\\OrmDelete',
+							'\\Model\\ORM\\Events\\Save',
+							'\\Model\\ORM\\Events\\Delete',
 						],
 						'ttl' => [
 							'short' => 1800,
