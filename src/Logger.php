@@ -158,8 +158,8 @@ class Logger
 				$limit = null;
 				$offset = null;
 				if ($page) {
-					$limit = ($page - 1) * $per_page;
-					$offset = $per_page;
+					$limit = $per_page;
+					$offset = ($page - 1) * $per_page;
 
 				}
 
@@ -167,6 +167,7 @@ class Logger
 					'order_by' => [['date', 'DESC']],
 					'limit' => $limit,
 					'offset' => $offset,
+					'cache' => false,
 				]);
 		}
 
