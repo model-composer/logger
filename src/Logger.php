@@ -23,12 +23,14 @@ class Logger
 							self::$long_ttl_reasons[] = $eventName;
 					}
 
-					self::$events[] = [
-						'type' => 'event',
-						'event' => $eventName,
-						'data' => $event->getData(),
-						'time' => microtime(true),
-					];
+					if (!in_array($eventName, $config['ignore'] ?? [])) {
+						self::$events[] = [
+							'type' => 'event',
+							'event' => $eventName,
+							'data' => $event->getData(),
+							'time' => microtime(true),
+						];
+					}
 				}
 			});
 		}

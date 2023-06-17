@@ -27,6 +27,13 @@ class ConfigProvider extends AbstractConfigProvider
 					];
 				},
 			],
+			[
+				'version' => '0.1.12',
+				'migration' => function (array $config, string $env) {
+					$config['ignore'] = ['Model\\Router\\Events\\UrlGet'];
+					return $config;
+				},
+			],
 		];
 	}
 }
