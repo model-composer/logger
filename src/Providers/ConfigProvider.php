@@ -13,15 +13,15 @@ class ConfigProvider extends AbstractConfigProvider
 					return [
 						'storage' => 'db',
 						'long_ttl_on' => [
-							'\\Model\\Core\\Events\\Error',
-							'\\Model\\Db\\Events\\DeleteQuery',
-							'\\Model\\Db\\Events\\UpdateQuery',
-							'\\Model\\Db\\Events\\InsertQuery',
-							'\\Model\\ORM\\Events\\Save',
-							'\\Model\\ORM\\Events\\Delete',
+							'Model\\Core\\Events\\Error',
+							'Model\\Db\\Events\\DeleteQuery',
+							'Model\\Db\\Events\\UpdateQuery',
+							'Model\\Db\\Events\\InsertQuery',
+							'Model\\ORM\\Events\\Save',
+							'Model\\ORM\\Events\\Delete',
 						],
 						'ttl' => [
-							'short' => 1800,
+							'short' => 3600,
 							'long' => 1209600,
 						],
 					];
