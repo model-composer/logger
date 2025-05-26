@@ -9,4 +9,9 @@ class ModelProvider extends AbstractModelProvider
 	{
 		Logger::cleanup();
 	}
+
+	public static function terminate(): void
+	{
+		Logger::persist();
+	}
 }
